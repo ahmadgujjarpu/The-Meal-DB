@@ -14,12 +14,12 @@ function getEndPointData(endPointURL, bindingData,rowId){
  
 
 
-function generateCell(title,img,rowId) {
-  $.get("template.html",(data)=>{
- var newData=data.replace("##IMG##",img);
- newData=newData.replace("##TITLE##",title);
- document.getElementById(`${rowId}`).innerHTML+=newData;
-  })
+function generateCell(title,img) {
+ let template=document.querySelector("#temp").content.cloneNode(true);
+ console.log(template);
+ template.querySelector("img").setAttribute("src",img);
+ template.querySelector("p").textContent=title;
+ return template;
 }
 
 
@@ -28,17 +28,16 @@ function bindingData(datax,rowId) {
     for(let i in datax){
         var title=datax[i].Name;
         var img =datax[i].Image;
-        generateCell(title,img,rowId);
+        
+        document.getElementById(`${rowId}`).append(generateCell(title,img));
     }
 }
 
 
-
-
-getEndPointData("latestMeals.json", bindingData,"mealss");
-getEndPointData("popularIngredients.json", bindingData,"pop-ing");
-getEndPointData("randomMeals.json", bindingData,"rand-meal");
-getEndPointData("randomIngredients.json", bindingData,"rand-ing");
+getEndPointData("apis/latestMeals.json", bindingData,"mealss");
+getEndPointData("apis/popularIngredients.json", bindingData,"pop-ing");
+getEndPointData("apis/randomMeals.json", bindingData,"rand-meal");
+getEndPointData("apis/randomIngredients.json", bindingData,"rand-ing");
 
 
 
@@ -50,7 +49,7 @@ document.getElementById("browse-country").addEventListener("load",getbrc());
 function getbrc() {
    
     const req = new XMLHttpRequest();
-        req.open("Get","flags.json");
+        req.open("Get","apis/flags.json");
         req.onload = function () {
 const data =JSON.parse(req.responseText);
 const dataf=data.flags;

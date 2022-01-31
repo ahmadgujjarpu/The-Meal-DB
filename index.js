@@ -24,8 +24,8 @@
 // document.getElementById("popular-ingredients").addEventListener("load",getpi());
 // function getpi() {
    
-    const req = new XMLHttpRequest();
-        req.open("Get","popularIngredients.json");
+    // const req = new XMLHttpRequest();
+    //     req.open("Get","popularIngredients.json");
 //         req.onload = function () {
 // const data =JSON.parse(req.responseText);
 // const datapi=data.popularIngredients;
